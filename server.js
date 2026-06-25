@@ -5,6 +5,7 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 import { promises as fs } from 'fs';
 import { Anthropic } from '@anthropic-ai/sdk';
+import Stripe from 'stripe';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -15,6 +16,13 @@ const app = express();
 const port = process.env.PORT || 4000;
 const apiKey = process.env.ANTHROPIC_API_KEY?.trim();
 const anthropic = new Anthropic({ apiKey });
+const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
+const frontendUrl = process.env.FRONTEND_URL || 'http://localhost:5173';
+
+const PLAN_PRICES = {
+  starter: 499,
+  pro: 999,
+};
 
 console.log('Server starting in', __dirname);
 console.log('Loaded .env:', path.join(__dirname, '.env'));
@@ -201,6 +209,43 @@ app.delete('/api/history', async (req, res) => {
   } catch (err) {
     console.error('DELETE /api/history error', err);
     res.status(500).json({ error: 'Unable to clear history.' });
+  }
+});
+
+app.post('/api/create-checkout-session', async (req, res) => {
+  const { plan, userId } = req.body;
+
+  if (!userId) {
+    return res.status(400).json({ error: 'userId is required.' });
+  }
+
+  const unitAmount = PLAN_PRICES[plan];
+  if (!unitAmount) {
+    return res.status(400).json({ error: `Invalid plan: ${plan}` });
+  }
+
+  try {
+    const session = await stripe.checkout.sessions.create({
+      payment_method_types: ['card'],
+      mode: 'subscription',
+      line_items: [{
+        price_data: {
+          currency: 'gbp',
+          product_data: { name: plan === 'pro' ? 'ListMate Pro' : 'ListMate Starter' },
+          unit_amount: unitAmount,
+          recurring: { interval: 'month' },
+        },
+        quantity: 1,
+      }],
+      metadata: { userId },
+      success_url: `${frontendUrl}/dashboard?payment=success`,
+      cancel_url: `${frontendUrl}/pricing`,
+    });
+
+    res.json({ url: session.url });
+  } catch (error) {
+    console.error('create-checkout-session error', error);
+    res.status(500).json({ error: error.message || 'Unable to create checkout session.' });
   }
 });
 

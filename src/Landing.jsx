@@ -1,6 +1,36 @@
-import { Link } from 'react-router-dom';
+import { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { useAuth } from './AuthProvider';
 
 export default function Landing() {
+  const { user } = useAuth();
+  const navigate = useNavigate();
+  const [loadingPlan, setLoadingPlan] = useState(null);
+  const [checkoutError, setCheckoutError] = useState('');
+
+  async function handleChoosePlan(plan) {
+    if (!user) {
+      navigate('/signup');
+      return;
+    }
+
+    setCheckoutError('');
+    setLoadingPlan(plan);
+    try {
+      const res = await fetch('/api/create-checkout-session', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ plan, userId: user.id }),
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || 'Unable to start checkout.');
+      window.location.href = data.url;
+    } catch (err) {
+      setCheckoutError(err.message);
+      setLoadingPlan(null);
+    }
+  }
+
   return (
     <div className="min-h-screen bg-gradient-to-b from-slate-950 via-purple-950 to-slate-950 font-sans text-white overflow-hidden">
       <header className="sticky top-0 z-50 border-b border-purple-500/20 bg-[rgba(15,10,30,0.72)] backdrop-blur-2xl shadow-2xl shadow-purple-900/20">
@@ -159,6 +189,9 @@ export default function Landing() {
             <p className="text-xs uppercase tracking-[0.4em] text-purple-300 font-semibold">Simple transparent pricing</p>
             <h2 className="text-5xl lg:text-6xl font-bold text-white leading-tight">Choose your plan.</h2>
             <p className="text-lg text-white/60 max-w-2xl">Start free. Scale as you grow. No surprises.</p>
+            {checkoutError && (
+              <p className="text-sm font-medium text-red-400">{checkoutError}</p>
+            )}
           </div>
 
           <div className="grid gap-8 lg:grid-cols-3 pt-8 items-start">
@@ -173,7 +206,7 @@ export default function Landing() {
                   <li className="flex items-start gap-3"><span className="text-purple-400 mt-1">✓</span> <span>Basic UK pricing</span></li>
                   <li className="flex items-start gap-3"><span className="text-purple-400 mt-1">✓</span> <span>Email support</span></li>
                 </ul>
-                <button className="mt-8 w-full rounded-full border border-purple-500/40 bg-white/5 backdrop-blur-sm px-6 py-3 text-sm font-semibold text-white/80 transition-all duration-300 hover:bg-white/20 hover:border-purple-400/60 hover:-translate-y-0.5 hover:shadow-lg hover:shadow-purple-500/30">Start free</button>
+                <Link to="/signup" className="mt-8 block w-full rounded-full border border-purple-500/40 bg-white/5 backdrop-blur-sm px-6 py-3 text-center text-sm font-semibold text-white/80 transition-all duration-300 hover:bg-white/20 hover:border-purple-400/60 hover:-translate-y-0.5 hover:shadow-lg hover:shadow-purple-500/30">Start free</Link>
               </div>
             </div>
 
@@ -195,7 +228,14 @@ export default function Landing() {
                   <li className="flex items-start gap-3"><span className="text-purple-300 mt-1">✓</span> <span>Priority generation</span></li>
                   <li className="flex items-start gap-3"><span className="text-purple-300 mt-1">✓</span> <span>Platform optimization</span></li>
                 </ul>
-                <button className="mt-8 w-full rounded-full bg-gradient-to-r from-purple-600 to-purple-500 px-6 py-3 text-sm font-semibold text-white transition-all duration-300 hover:shadow-2xl hover:shadow-purple-500/70 hover:-translate-y-1.5 hover:from-purple-500 hover:to-pink-500 active:translate-y-0 group-hover:scale-105">Choose Starter</button>
+                <button
+                  type="button"
+                  onClick={() => handleChoosePlan('starter')}
+                  disabled={loadingPlan === 'starter'}
+                  className="mt-8 w-full rounded-full bg-gradient-to-r from-purple-600 to-purple-500 px-6 py-3 text-sm font-semibold text-white transition-all duration-300 hover:shadow-2xl hover:shadow-purple-500/70 hover:-translate-y-1.5 hover:from-purple-500 hover:to-pink-500 active:translate-y-0 group-hover:scale-105 disabled:opacity-60"
+                >
+                  {loadingPlan === 'starter' ? 'Redirecting…' : 'Choose Starter'}
+                </button>
               </div>
             </div>
 
@@ -212,7 +252,14 @@ export default function Landing() {
                   <li className="flex items-start gap-3"><span className="text-purple-400 mt-1">✓</span> <span>Unlimited outputs</span></li>
                   <li className="flex items-start gap-3"><span className="text-purple-400 mt-1">✓</span> <span>Priority support</span></li>
                 </ul>
-                <button className="mt-8 w-full rounded-full border border-purple-500/40 bg-white/5 backdrop-blur-sm px-6 py-3 text-sm font-semibold text-white/80 transition-all duration-300 hover:bg-white/20 hover:border-purple-400/60 hover:-translate-y-0.5 hover:shadow-lg hover:shadow-purple-500/30">Go Pro</button>
+                <button
+                  type="button"
+                  onClick={() => handleChoosePlan('pro')}
+                  disabled={loadingPlan === 'pro'}
+                  className="mt-8 w-full rounded-full border border-purple-500/40 bg-white/5 backdrop-blur-sm px-6 py-3 text-sm font-semibold text-white/80 transition-all duration-300 hover:bg-white/20 hover:border-purple-400/60 hover:-translate-y-0.5 hover:shadow-lg hover:shadow-purple-500/30 disabled:opacity-60"
+                >
+                  {loadingPlan === 'pro' ? 'Redirecting…' : 'Go Pro'}
+                </button>
               </div>
             </div>
           </div>

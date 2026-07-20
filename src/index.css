@@ -1,0 +1,81 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  background-color: #0f0a1e;
+  color: #f8fafc;
+  font-family: 'Inter', system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 5px; height: 5px; }
+::-webkit-scrollbar-track { background: #181128; }
+::-webkit-scrollbar-thumb { background: #3d2a6e; border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: #7c3aed; }
+
+/* Kanban column scroll */
+.kanban-col {
+  min-height: 200px;
+  max-height: calc(100vh - 220px);
+  overflow-y: auto;
+}
+
+/* Smooth transitions */
+.transition-all { transition: all 0.2s ease; }
+
+/* Glow effects */
+.glow-brand {
+  box-shadow: 0 0 20px rgba(124, 58, 237, 0.3);
+}
+
+/* Input focus ring */
+input:focus, select:focus, textarea:focus {
+  outline: none;
+  border-color: #7c3aed !important;
+  box-shadow: 0 0 0 2px rgba(124, 58, 237, 0.2);
+}
+
+/* Gradient text */
+.gradient-text {
+  background: linear-gradient(135deg, #a78bfa, #7c3aed);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Card hover */
+.card-hover:hover {
+  border-color: rgba(124, 58, 237, 0.4) !important;
+  transform: translateY(-1px);
+}
+
+/* Animate in */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.fade-in { animation: fadeIn 0.3s ease; }
+
+/* Step indicator */
+.step-active {
+  background: #7c3aed;
+  color: white;
+}
+.step-done {
+  background: rgba(124, 58, 237, 0.2);
+  color: #a78bfa;
+  border: 1px solid rgba(124, 58, 237, 0.4);
+}
+.step-pending {
+  background: rgba(255,255,255,0.05);
+  color: #64748b;
+  border: 1px solid rgba(255,255,255,0.08);
+}

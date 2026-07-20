@@ -58,6 +58,9 @@ export default function Login() {
           <div className="form-actions">
             <button type="submit" disabled={loading}>{loading ? 'Signing in...' : 'Sign in'}</button>
           </div>
+          <p className="auth-switch">
+            <Link to="/forgot-password">Forgot your password?</Link>
+          </p>
           <p className="auth-switch">No account yet? <Link to="/signup">Create one for free</Link></p>
         </form>
       </div>

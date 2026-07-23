@@ -13,7 +13,7 @@ set REPO=listmate
 
 set GITHUB_USER=awais259
 set REMOTE=https://github.com/%GITHUB_USER%/%REPO%.git
-set COMMIT_MSG=fix: install dev dependencies during Render build
+set COMMIT_MSG=feat: legal compliance updates (trading identity, consent, transfers) + subscription portal
 
 echo.
 echo  ListMate ^> GitHub Push Script

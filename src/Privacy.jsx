@@ -16,13 +16,14 @@ export default function Privacy() {
 
       <main className="mx-auto max-w-3xl px-6 py-20 lg:px-8">
         <h1 className="text-4xl font-bold mb-2">Privacy Policy</h1>
-        <p className="text-white/40 text-sm mb-12">Last updated: June 2025</p>
+        <p className="text-white/40 text-sm mb-12">Last updated: 23 July 2026</p>
 
         <div className="space-y-10 text-white/70 leading-relaxed">
 
           <section>
             <h2 className="text-xl font-semibold text-white mb-3">1. Who we are</h2>
-            <p>ListMate ("we", "us", "our") operates listmate.co.uk. This policy explains how we collect, use, and protect your personal data in accordance with the UK GDPR and the Data Protection Act 2018. For questions, contact us at <a href="mailto:privacy@listmate.co.uk" className="text-indigo-300 hover:text-white transition">privacy@listmate.co.uk</a>.</p>
+            <p className="mb-3">ListMate is operated by <strong className="text-white">lookntook ltd</strong> ("we", "us", "our"), a company registered in England &amp; Wales under company number 14851224, with its registered office at 85 Blackburn Way, Hounslow, England, TW4 5AH. lookntook ltd is the <strong className="text-white">data controller</strong> for the personal data processed through listmate.co.uk.</p>
+            <p>This policy explains how we collect, use, and protect your personal data in accordance with the UK GDPR and the Data Protection Act 2018. For questions, contact us at <a href="mailto:privacy@listmate.co.uk" className="text-indigo-300 hover:text-white transition">privacy@listmate.co.uk</a>.</p>
           </section>
 
           <section>
@@ -65,12 +66,18 @@ export default function Privacy() {
           </section>
 
           <section>
-            <h2 className="text-xl font-semibold text-white mb-3">6. Data retention</h2>
-            <p>We retain your account data for as long as your account is active. Listing history is retained for 12 months and can be deleted at any time from your dashboard. If you close your account, we delete your personal data within 30 days, except where we are required to retain it by law (e.g. financial records for 6 years under HMRC rules).</p>
+            <h2 className="text-xl font-semibold text-white mb-3">6. International data transfers</h2>
+            <p>Some of our processors are located outside the UK. In particular, item content submitted for listing generation is processed by Anthropic in the United States, and Stripe may process payment data in the United States. Where personal data is transferred outside the UK, we rely on appropriate safeguards recognised under UK GDPR — including the UK International Data Transfer Agreement (IDTA) or the UK Addendum to the EU Standard Contractual Clauses entered into by these providers — together with each provider's own data protection commitments. You can contact us at <a href="mailto:privacy@listmate.co.uk" className="text-indigo-300 hover:text-white transition">privacy@listmate.co.uk</a> for more information about these safeguards.</p>
           </section>
 
           <section>
-            <h2 className="text-xl font-semibold text-white mb-3">7. Your rights</h2>
+            <h2 className="text-xl font-semibold text-white mb-3">7. Data retention</h2>
+            <p className="mb-3">We retain your account data for as long as your account is active. Listing history is retained for 12 months and can be deleted at any time from your dashboard. If you close your account, we delete your personal data within 30 days, except where we are required to retain it by law (e.g. financial records for 6 years under HMRC rules).</p>
+            <p>If we permanently shut down the Service, we will notify you by email at least 30 days in advance and give you the opportunity to export your listing history during that period. After the shutdown date, we will delete all personal data and listing history within 30 days, except records we must keep to comply with legal obligations.</p>
+          </section>
+
+          <section>
+            <h2 className="text-xl font-semibold text-white mb-3">8. Your rights</h2>
             <p className="mb-3">Under UK GDPR you have the right to:</p>
             <ul className="space-y-2 list-disc pl-5">
               <li><strong className="text-white">Access</strong> — request a copy of your personal data.</li>
@@ -84,17 +91,18 @@ export default function Privacy() {
           </section>
 
           <section>
-            <h2 className="text-xl font-semibold text-white mb-3">8. Cookies</h2>
-            <p>We use a single session cookie to keep you logged in. We do not use tracking, analytics, or advertising cookies. No cookie consent banner is required as we only use strictly necessary cookies.</p>
+            <h2 className="text-xl font-semibold text-white mb-3">9. Cookies</h2>
+            <p className="mb-3">We set strictly necessary cookies (and similar technologies such as local storage) to keep you logged in and operate the Service. We do not set our own tracking, analytics, or advertising cookies.</p>
+            <p>Some third-party services we use may set their own cookies when you interact with them — in particular <strong className="text-white">Stripe</strong>, which sets cookies during checkout for payment processing and fraud prevention. These are governed by the third party's own cookie and privacy policies.</p>
           </section>
 
           <section>
-            <h2 className="text-xl font-semibold text-white mb-3">9. Security</h2>
+            <h2 className="text-xl font-semibold text-white mb-3">10. Security</h2>
             <p>We use industry-standard measures to protect your data including HTTPS, encrypted passwords (bcrypt), and database-level row security. No system is completely secure — if you believe your account has been compromised, contact us immediately.</p>
           </section>
 
           <section>
-            <h2 className="text-xl font-semibold text-white mb-3">10. Changes to this policy</h2>
+            <h2 className="text-xl font-semibold text-white mb-3">11. Changes to this policy</h2>
             <p>We may update this policy from time to time. Material changes will be communicated by email or a notice on the Service. The date at the top of this page shows when it was last updated.</p>
           </section>
 
@@ -102,7 +110,7 @@ export default function Privacy() {
       </main>
 
       <footer className="border-t border-indigo-500/20 px-6 py-8 text-center text-xs text-white/30">
-        <p>© 2025 ListMate · <Link to="/terms" className="hover:text-indigo-300 transition">Terms</Link> · <Link to="/privacy" className="hover:text-indigo-300 transition">Privacy</Link> · <Link to="/refund" className="hover:text-indigo-300 transition">Refunds</Link> · <Link to="/contact" className="hover:text-indigo-300 transition">Contact</Link></p>
+        <p>© 2026 ListMate · lookntook ltd (Company No. 14851224) · <Link to="/terms" className="hover:text-indigo-300 transition">Terms</Link> · <Link to="/privacy" className="hover:text-indigo-300 transition">Privacy</Link> · <Link to="/refund" className="hover:text-indigo-300 transition">Refunds</Link> · <Link to="/contact" className="hover:text-indigo-300 transition">Contact</Link></p>
       </footer>
     </div>
   );

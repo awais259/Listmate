@@ -1,4 +1,15 @@
-# ListMate — Launch Checklist (20 July 2026)
+# ListMate — Launch Checklist (updated 21 July 2026, 1:30 AM)
+
+## 🚀 FULLY LAUNCHED: https://listmate.co.uk
+(also reachable at https://listmate-ntgl.onrender.com)
+
+Everything below is COMPLETE except final end-to-end payment test:
+- ✅ Deployed on Render, build working
+- ✅ Custom domain live with HTTPS (DNS done at Namecheap; Zoho email records preserved)
+- ✅ Supabase auth + database verified in production
+- ✅ AI listing generation tested live (real Claude output, saved to database)
+- ✅ Stripe webhook "listmate-production" active with signing secret set in Render
+- 🔲 Final test: sign up on the site, generate a listing, upgrade with test card 4242 4242 4242 4242, confirm plan upgrades (check Stripe → Workbench → Webhooks → Event deliveries shows "Succeeded")
 
 ## ✅ Already done (verified today)
 
@@ -10,36 +21,29 @@
 - **.gitignore** — `.env` is safely excluded from GitHub
 - **render.yaml** — ready for one-click Render deploy (health check, env vars, FRONTEND_URL=https://listmate.co.uk)
 
-## 🔲 Step 1 — Push latest code to GitHub (2 min)
+## ✅ Step 1 — Code pushed to GitHub (done 20 July)
 
-Your repo `github.com/awais259/Listmate` is outdated (missing render.yaml and recent changes).
+## ✅ Step 2 — Deployed on Render (done 21 July)
 
-**Do this:** double-click `push_to_github.bat` in this folder.
-It will commit and push everything (it also removes the old stray files from the repo).
+Service: `listmate` on Render free plan.
+Live URL: **https://listmate-ntgl.onrender.com** (verified working — frontend + API).
+Build fix applied: `npm install --include=dev` so Vite is available during build.
+Supabase redirect URL for the onrender address also added.
 
-## 🔲 Step 2 — Deploy on Render (10 min)
+## 🔶 Step 3 — Point listmate.co.uk at Render (Render side DONE — DNS is yours)
 
-1. Go to https://dashboard.render.com and sign in (use "Sign in with GitHub" — free account)
-2. Click **New → Blueprint**
-3. Connect your GitHub account and select the **Listmate** repo
-4. Render reads `render.yaml` automatically and asks for the env var values.
-   Copy each value from the `.env` file in this folder:
-   - `ANTHROPIC_API_KEY`
-   - `STRIPE_SECRET_KEY`
-   - `SUPABASE_URL` and `VITE_SUPABASE_URL` (same value)
-   - `SUPABASE_SERVICE_ROLE_KEY`
-   - `VITE_SUPABASE_ANON_KEY`
-   - `STRIPE_WEBHOOK_SECRET` — leave blank for now (Step 4)
-5. Click **Apply / Deploy** and wait ~5 min for the build
-6. You'll get a URL like `https://listmate.onrender.com` — open it and check the app loads
+Both `listmate.co.uk` and `www.listmate.co.uk` are added in Render (status: Waiting for DNS).
 
-## 🔲 Step 3 — Point listmate.co.uk at Render (5 min + DNS wait)
+**Your part:** log in at your domain registrar (where you bought listmate.co.uk) → DNS settings → add:
 
-1. In Render: your service → **Settings → Custom Domains → Add** `listmate.co.uk` and `www.listmate.co.uk`
-2. Render shows you DNS records. At your domain registrar add:
-   - `A` record for `listmate.co.uk` → the IP Render shows (usually `216.24.57.1`)
-   - `CNAME` record for `www` → your `xxx.onrender.com` address
-3. Wait for DNS (minutes to a few hours). Render issues free HTTPS automatically.
+| Type  | Name / Host | Value                          |
+|-------|-------------|--------------------------------|
+| A     | @           | 216.24.57.1                    |
+| CNAME | www         | listmate-ntgl.onrender.com     |
+
+(Delete any old A/CNAME records for @ and www first. If verification doesn't turn green in a few hours, open Render → listmate → Settings → Custom Domains and check the exact records it shows.)
+
+Render issues free HTTPS automatically once DNS verifies.
 
 ## 🔲 Step 4 — Stripe webhook (needed for paid upgrades to activate)
 

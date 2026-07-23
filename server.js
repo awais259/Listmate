@@ -581,6 +581,14 @@ app.post('/api/create-checkout-session', async (req, res) => {
       mode: 'subscription',
       line_items: [lineItem],
       metadata: { userId, plan },
+      // UK Consumer Contracts Regulations 2013: express consent to immediate
+      // supply + acknowledgement of loss of the 14-day cancellation right.
+      custom_text: {
+        submit: {
+          message:
+            'By subscribing you expressly request immediate access to ListMate and acknowledge that once the service has been performed you lose your 14-day statutory right to cancel (any refund may be reduced by the value of service already provided). See listmate.co.uk/refund.',
+        },
+      },
       success_url: `${frontendUrl}/dashboard?payment=success`,
       cancel_url: `${frontendUrl}/pricing`,
     });
@@ -589,6 +597,45 @@ app.post('/api/create-checkout-session', async (req, res) => {
   } catch (error) {
     console.error('create-checkout-session error', error);
     res.status(500).json({ error: error.message || 'Unable to create checkout session.' });
+  }
+});
+
+// ── Stripe customer portal (manage / cancel subscription from Settings) ───────
+app.post('/api/create-portal-session', async (req, res) => {
+  const { userId } = req.body;
+  if (!userId) return res.status(400).json({ error: 'userId is required.' });
+
+  if (!stripe) {
+    return res.json({ url: `${frontendUrl}/settings?portal=demo` });
+  }
+
+  try {
+    // Look up the Stripe customer id for this user
+    let customerId = null;
+    if (supabaseAdmin) {
+      const { data } = await supabaseAdmin
+        .from('subscriptions')
+        .select('stripe_customer_id')
+        .eq('user_id', userId)
+        .maybeSingle();
+      customerId = data?.stripe_customer_id || null;
+    } else {
+      const subs = await readSubs();
+      customerId = subs[userId]?.stripeCustomerId || null;
+    }
+
+    if (!customerId) {
+      return res.status(404).json({ error: 'No active subscription found for this account.' });
+    }
+
+    const session = await stripe.billingPortal.sessions.create({
+      customer: customerId,
+      return_url: `${frontendUrl}/settings`,
+    });
+    res.json({ url: session.url });
+  } catch (error) {
+    console.error('create-portal-session error', error);
+    res.status(500).json({ error: error.message || 'Unable to open the subscription portal.' });
   }
 });
 

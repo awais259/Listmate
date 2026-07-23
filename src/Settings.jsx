@@ -21,6 +21,7 @@ export default function Settings() {
   const [loadingPlan, setLoadingPlan] = useState(null);
   const [error, setError] = useState('');
   const [signingOut, setSigningOut] = useState(false);
+  const [portalLoading, setPortalLoading] = useState(false);
 
   // Fetch quota / plan from server
   useEffect(() => {
@@ -61,6 +62,25 @@ export default function Settings() {
     setSigningOut(true);
     await supabase.auth.signOut();
     navigate('/login');
+  }
+
+  async function handleManageSubscription() {
+    if (!user) return;
+    setError('');
+    setPortalLoading(true);
+    try {
+      const res = await fetch('/api/create-portal-session', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ userId: user.id }),
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || 'Unable to open the subscription portal.');
+      window.location.href = data.url;
+    } catch (err) {
+      setError(err.message);
+      setPortalLoading(false);
+    }
   }
 
   return (
@@ -176,6 +196,30 @@ export default function Settings() {
                 </button>
               </div>
             </div>
+          </section>
+        )}
+
+        {/* Manage subscription */}
+        {plan !== 'free' && (
+          <section className="panel" style={{ marginBottom: 20 }}>
+            <h2>Manage subscription</h2>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: 12, flexWrap: 'wrap' }}>
+              <span style={{ color: '#a5b4fc', fontSize: '0.9rem' }}>
+                Update payment details, view invoices, or cancel your plan.
+              </span>
+              <button
+                type="button"
+                onClick={handleManageSubscription}
+                disabled={portalLoading}
+                className="secondary"
+                style={{ padding: '8px 16px', borderRadius: 12, fontSize: '0.85rem' }}
+              >
+                {portalLoading ? 'Opening…' : 'Manage or cancel →'}
+              </button>
+            </div>
+            <p style={{ color: '#64748b', fontSize: '0.78rem', marginTop: 10 }}>
+              Cancellation takes effect at the end of your current billing period — you keep access until then.
+            </p>
           </section>
         )}
 

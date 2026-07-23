@@ -16,13 +16,14 @@ export default function Terms() {
 
       <main className="mx-auto max-w-3xl px-6 py-20 lg:px-8">
         <h1 className="text-4xl font-bold mb-2">Terms of Service</h1>
-        <p className="text-white/40 text-sm mb-12">Last updated: June 2025</p>
+        <p className="text-white/40 text-sm mb-12">Last updated: 23 July 2026</p>
 
         <div className="space-y-10 text-white/70 leading-relaxed">
 
           <section>
             <h2 className="text-xl font-semibold text-white mb-3">1. About ListMate</h2>
-            <p>ListMate ("we", "us", "our") is an AI-powered listing generation service for UK marketplace resellers. By accessing or using ListMate at listmate.co.uk (the "Service"), you agree to be bound by these Terms of Service. If you do not agree, do not use the Service.</p>
+            <p className="mb-3">ListMate is a trading name of <strong className="text-white">lookntook ltd</strong> ("we", "us", "our"), a company registered in England &amp; Wales under company number 14851224, with its registered office at 85 Blackburn Way, Hounslow, England, TW4 5AH.</p>
+            <p>ListMate is an AI-powered listing generation service for UK marketplace resellers. By accessing or using ListMate at listmate.co.uk (the "Service"), you agree to be bound by these Terms of Service. If you do not agree, do not use the Service.</p>
           </section>
 
           <section>
@@ -71,7 +72,8 @@ export default function Terms() {
 
           <section>
             <h2 className="text-xl font-semibold text-white mb-3">9. Service Availability</h2>
-            <p>We aim for high availability but do not guarantee uninterrupted access to the Service. We may suspend the Service temporarily for maintenance, updates, or circumstances beyond our control.</p>
+            <p className="mb-3">We aim for high availability but do not guarantee uninterrupted access to the Service. We may suspend the Service temporarily for maintenance, updates, or circumstances beyond our control.</p>
+            <p>If we decide to permanently discontinue the Service, we will give you at least 30 days' notice by email, provide a window in which you can export your listing history, and refund any prepaid amounts covering the period after the shutdown date. See our Privacy Policy for how your data is handled on shutdown.</p>
           </section>
 
           <section>
@@ -92,7 +94,7 @@ export default function Terms() {
       </main>
 
       <footer className="border-t border-indigo-500/20 px-6 py-8 text-center text-xs text-white/30">
-        <p>© 2025 ListMate · <Link to="/terms" className="hover:text-indigo-300 transition">Terms</Link> · <Link to="/privacy" className="hover:text-indigo-300 transition">Privacy</Link> · <Link to="/refund" className="hover:text-indigo-300 transition">Refunds</Link> · <Link to="/contact" className="hover:text-indigo-300 transition">Contact</Link></p>
+        <p>© 2026 ListMate · lookntook ltd (Company No. 14851224) · <Link to="/terms" className="hover:text-indigo-300 transition">Terms</Link> · <Link to="/privacy" className="hover:text-indigo-300 transition">Privacy</Link> · <Link to="/refund" className="hover:text-indigo-300 transition">Refunds</Link> · <Link to="/contact" className="hover:text-indigo-300 transition">Contact</Link></p>
       </footer>
     </div>
   );

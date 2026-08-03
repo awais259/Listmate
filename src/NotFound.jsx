@@ -1,9 +1,11 @@
 import { Link } from 'react-router-dom';
 import LogoMark from './LogoMark';
+import Seo from './Seo';
 
 export default function NotFound() {
   return (
     <div className="min-h-screen bg-gradient-to-b from-slate-950 via-indigo-950 to-slate-950 font-sans text-white flex flex-col items-center justify-center px-6 text-center">
+      <Seo title="Page not found — ListMate" description="The page you're looking for doesn't exist or has been moved." noindex />
       <LogoMark size={56} />
       <p className="mt-8 text-8xl font-bold text-indigo-500/30">404</p>
       <h1 className="mt-4 text-3xl font-bold text-white">Page not found</h1>

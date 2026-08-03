@@ -2,7 +2,7 @@ services:
   - type: web
     name: listmate
     runtime: node
-    plan: free
+    plan: starter
     buildCommand: npm install --include=dev && npm run build
     startCommand: npm start
     healthCheckPath: /api/quota

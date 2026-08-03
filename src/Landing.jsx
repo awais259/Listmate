@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from './AuthProvider';
 import LogoMark from './LogoMark';
+import Seo from './Seo';
 
 function renderCell(value, isListmate) {
   if (value === true) {
@@ -54,6 +55,11 @@ export default function Landing() {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-slate-950 via-indigo-950 to-slate-950 font-sans text-white overflow-hidden">
+      <Seo
+        title="ListMate — AI Listing Generator for UK Resellers"
+        description="Generate marketplace-ready titles, descriptions, pricing and tags for eBay, Vinted, Depop and TikTok Shop in seconds. Built for UK resellers."
+        path="/"
+      />
       <header className="sticky top-0 z-50 border-b border-indigo-500/20 bg-[rgba(6,4,18,0.76)] backdrop-blur-2xl shadow-2xl shadow-indigo-900/20">
         <div className="mx-auto flex max-w-7xl items-center justify-between gap-6 px-6 py-5 lg:px-8">
           <div className="flex items-center gap-3 text-white/95">

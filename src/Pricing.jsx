@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from './AuthProvider';
 import LogoMark from './LogoMark';
+import Seo from './Seo';
 
 const PLANS = [
   {
@@ -82,6 +83,11 @@ export default function Pricing() {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-slate-950 via-indigo-950 to-slate-950 font-sans text-white">
+      <Seo
+        title="ListMate Pricing — Plans from £0/mo"
+        description="Simple pricing for UK resellers: Free to start, Starter £5.99/mo, Pro £11.99/mo. AI listings for eBay, Vinted, Depop and TikTok Shop."
+        path="/pricing"
+      />
       {/* Nav */}
       <header className="sticky top-0 z-50 border-b border-indigo-500/20 bg-[rgba(6,4,18,0.76)] backdrop-blur-2xl">
         <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4 lg:px-8">

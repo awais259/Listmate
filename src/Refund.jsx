@@ -1,9 +1,15 @@
 import { Link } from 'react-router-dom';
 import LogoMark from './LogoMark';
+import Seo from './Seo';
 
 export default function Refund() {
   return (
     <div className="min-h-screen bg-gradient-to-b from-slate-950 via-indigo-950 to-slate-950 font-sans text-white">
+      <Seo
+        title="ListMate Refund & Cancellation Policy"
+        description="How ListMate subscriptions are cancelled and when refunds apply, from lookntook ltd."
+        path="/refund"
+      />
       <header className="border-b border-indigo-500/20 bg-[rgba(6,4,18,0.76)] backdrop-blur-2xl">
         <div className="mx-auto flex max-w-4xl items-center justify-between px-6 py-4">
           <Link to="/" className="flex items-center gap-3 text-white/95 no-underline">

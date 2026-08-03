@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+Disallow: /dashboard
+Disallow: /settings
+Disallow: /login
+Disallow: /signup
+Sitemap: https://listmate.co.uk/sitemap.xml
